@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "PacketDelivery.GrpcServer";
+
+package pdservice;
+
+service PdService {
+  rpc RegisterTeam (RegistrationRequestMessage) returns (RegistrationReplyMessage);
+  rpc CommunicateWithStreams (stream CommandMessage) returns (stream CommandMessage);
+}
+
+message CommandMessage {
+  int32 cmdCounter = 1;
+  string commandId = 2;
+  string commandData = 3;
+}
+
+message RegistrationRequestMessage {
+  string teamName = 1;
+  string teamPassword = 2;
+  bytes teamImagePng = 3;
+}
+
+message RegistrationReplyMessage {
+  int32 teamId = 1;
+  bytes mapImagePng = 2;
+}
